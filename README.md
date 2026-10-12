@@ -1,48 +1,49 @@
-# adput-pagos
+# ADPUT Pagos UI
 
-This template should help get you started developing with Vue 3 in Vite.
+Documentación técnica: [backend, migraciones y operación](../adput-pagos-backend/DOCUMENTACION_TECNICA.md).
 
-## Recommended IDE Setup
+Interfaz Vue responsive para socios y Administración de ADPUT.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Manual de uso: [socios y Administración](../adput-pagos-backend/MANUAL_DE_USO.md).
 
-## Recommended Browser Setup
+## Uso actual
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Socios: inicio de sesión, cuotas, saldo, vencimientos, perfil y contraseña.
+- Administración: configuración de cuota mensual futura, cargos extra primero en borrador y aplicados solo tras confirmación, extracto de cobranzas, filtros por fecha/situación/búsqueda, paginación y exportación XLSX.
+- Los filtros de fecha y situación se aplican automáticamente; la búsqueda espera 400 ms después de la última tecla.
 
-## Type Support for `.vue` Imports in TS
+La API se ejecuta en `http://127.0.0.1:3000` y Vite reenvía `/api` a ese servicio durante el desarrollo.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Ejecutar
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```powershell
 pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Abrir `http://127.0.0.1:5173`.
 
-```sh
+## Compartir por ngrok
+
+Con el backend y el frontend locales en ejecución:
+
+```powershell
+ngrok http 5173
+```
+
+Solo se expone el frontend: el proxy de Vite mantiene la API en el equipo local. Si ngrok entrega un dominio nuevo y Vite lo bloquea, agregalo temporalmente antes de iniciar Vite:
+
+```powershell
+$env:__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS = "tu-dominio.ngrok-free.dev"
+pnpm dev
+```
+
+Usar datos de demostración al compartir un túnel público.
+
+## Validación
+
+```powershell
 pnpm build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+La documentación completa de arquitectura, datos, seguridad y próximos opcionales está en el [README del backend](../adput-pagos-backend/README.md).
